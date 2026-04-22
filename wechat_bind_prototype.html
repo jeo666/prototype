@@ -216,11 +216,7 @@
             </div>
           </div>
 
-          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
-            <span>本账号本月还可解绑 <span class="text-brand font-semibold">3</span> 次</span>
-            <span class="text-slate-400">每月 1 号重置</span>
-          </div>
-          <button class="mt-2 w-full py-2.5 rounded-full text-sm text-slate-500 border border-slate-200 bg-white">解绑微信</button>
+          <button class="mt-4 w-full py-2.5 rounded-full text-sm text-slate-500 border border-slate-200 bg-white">解绑微信</button>
         </div>
       </div>
     </div>
@@ -254,11 +250,7 @@
             </div>
           </div>
 
-          <div class="mt-3 flex items-center justify-between text-xs text-slate-500 px-1">
-            <span>本账号本月还可解绑 <span class="text-brand font-semibold">2</span> 次</span>
-            <span class="text-slate-400">每月 1 号重置</span>
-          </div>
-          <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">立即绑定</button>
+          <button class="primary-btn w-full mt-4 py-3 rounded-full text-sm">立即绑定</button>
         </div>
       </div>
     </div>
@@ -287,10 +279,6 @@
                 <div class="text-base font-semibold text-slate-900">确认解绑微信？</div>
                 <div class="mt-3 text-xs text-slate-500 leading-relaxed">
                   解绑后将无法收到服务号推送的<br/>追更提醒和重要通知
-                </div>
-                <div class="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-2.5 text-xs text-amber-700 leading-relaxed">
-                  本账号本月还可解绑 <span class="font-semibold">3</span> 次<br/>
-                  <span class="text-amber-500">第 3 次解绑后需次月才可绑定</span>
                 </div>
               </div>
               <div class="grid grid-cols-2 border-t border-slate-100">
@@ -371,45 +359,13 @@
         </div>
       </div>
     </div>
-
-    <div>
-      <div class="frame-title">⑧ 限流 · 当月解绑已达上限</div>
-      <div class="frame-sub">该起点账号本月被解绑次数达 3 次</div>
-      <div class="phone">
-        <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
-        <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
-        <div class="content bg-slate-50 p-4">
-          <div class="account-row mb-4">
-            <div class="avatar qd-avatar">起</div>
-            <div class="meta">
-              <div class="name">书友_8472391</div>
-              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
-            </div>
-            <span class="switch-link">切换账号</span>
-          </div>
-
-          <div class="text-center mb-4">
-            <div class="status-pill fail-red">🚫 本月已达上限</div>
-          </div>
-
-          <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
-            <div class="w-14 h-14 mx-auto rounded-full bg-red-100 flex items-center justify-center text-2xl mb-3">🚫</div>
-            <div class="text-sm font-semibold text-red-900">该账号本月解绑次数已达 3 次上限</div>
-            <div class="mt-2 text-xs text-red-700 leading-relaxed">
-              本月该起点账号暂无法绑定新微信<br/>
-              请于下月 1 日 0:00 后重试
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- ⑩ 切换账号二次确认 -->
   <div class="section-title"><span class="num">04</span><span class="desc">切换账号二次确认</span></div>
   <div class="flex flex-wrap gap-8">
     <div>
-      <div class="frame-title">⑨ 切换账号 · 二次确认弹窗</div>
+      <div class="frame-title">⑧ 切换账号 · 二次确认弹窗</div>
       <div class="frame-sub">点击账号行的"切换账号"后弹出</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
@@ -506,7 +462,7 @@
 
   <div class="section-title"><span class="num">06</span><span class="desc">自动登录关键原型</span></div>
   <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800 mb-4 leading-relaxed">
-    💡 自动登录是通用能力，不与任何具体业务耦合。情况 2 / 情况 5 对用户无感知；情况 3/4 拒绝或限流时直接走业务流程。本节仅展示**必须有用户交互的页面**。
+    💡 自动登录是通用能力，不与任何具体业务耦合。情况 2 / 情况 5 对用户无感知；情况 3/4 拒绝或冷却期内直接走业务流程。本节仅展示**必须有用户交互的页面**。
   </div>
   <div class="flex flex-wrap gap-8">
 
