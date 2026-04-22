@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>起点 × 微信绑定 · H5 原型图 v3</title>
+<title>起点 × 微信绑定 · H5 原型图 v4</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   :root { --qd-red:#E7221D; --qd-red-deep:#C41912; --qd-red-soft:#FFF1F0; --qd-red-border:#FFCCC7; }
@@ -13,17 +13,18 @@
   .navbar { height:44px; background:#fff; display:flex; align-items:center; padding:0 12px; border-bottom:1px solid #f1f5f9; position:relative; }
   .navbar .title { position:absolute; left:50%; transform:translateX(-50%); font-size:16px; font-weight:600; color:#0f172a; }
   .navbar .back { font-size:20px; color:#0f172a; }
+  .navbar .nav-right { position:absolute; right:14px; font-size:14px; color:#64748b; }
   .content { height: calc(100% - 72px); overflow-y:auto; position:relative; }
+
   .primary-btn { background: linear-gradient(135deg, #E7221D 0%, #C41912 100%); color:#fff; font-weight:600; }
   .primary-btn-disabled { background:#e5e7eb; color:#94a3b8; font-weight:600; }
-  .ghost-btn { background:#fff; color:var(--qd-red); border:1px solid var(--qd-red-border); font-weight:500; }
   .gray-btn { background:#f1f5f9; color:#475569; font-weight:500; }
   .text-brand { color: var(--qd-red); }
   .bg-brand-soft { background: var(--qd-red-soft); }
   .border-brand-soft { border-color: var(--qd-red-border); }
   .qd-avatar { background: linear-gradient(135deg, #E7221D 0%, #C41912 100%); }
+
   .label { font-size:12px; color:#94a3b8; }
-  .toast { position:absolute; left:50%; transform:translateX(-50%); top:40%; background:rgba(15,23,42,0.85); color:#fff; padding:10px 16px; border-radius:8px; font-size:13px; max-width:80%; text-align:center; }
   .modal-mask { position:absolute; inset:0; background:rgba(15,23,42,0.45); display:flex; align-items:center; justify-content:center; }
   .modal { background:#fff; width:280px; border-radius:14px; overflow:hidden; }
 
@@ -31,8 +32,7 @@
   .wx-sheet { background:#EDEDED; width:100%; border-radius:12px 12px 0 0; overflow:hidden; }
   .wx-sheet-head { background:#fff; padding:14px 16px 10px; display:flex; align-items:center; gap:10px; border-bottom:1px solid #f1f5f9; }
   .wx-sheet-body { background:#fff; }
-  .wx-sheet-row { padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; font-size:14px; color:#181818; }
-  .wx-sheet-row:last-child { border-bottom:none; }
+  .wx-sheet-row { padding:14px 16px; display:flex; justify-content:space-between; align-items:center; font-size:14px; color:#181818; }
   .wx-sheet-row .val { color:#888; font-size:13px; }
   .wx-sheet-foot { padding:10px 16px 16px; background:#EDEDED; }
   .wx-btn-allow { background:#07C160; color:#fff; font-size:16px; font-weight:500; width:100%; padding:11px 0; border-radius:6px; }
@@ -47,16 +47,41 @@
   code.kbd { background:#f1f5f9; padding:1px 6px; border-radius:3px; font-size:12px; }
   .scene-tag { display:inline-block; background:#0f172a; color:#fff; font-size:11px; font-weight:600; border-radius:4px; padding:2px 8px; margin-right:6px; }
   .scene-tag.auto { background:#0284c7; }
+
+  /* 紧凑账号行（替代原大卡片） */
+  .account-row { display:flex; align-items:center; gap:10px; padding:10px 14px; background:#fff; border-radius:10px; }
+  .account-row .avatar { width:32px; height:32px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:600; }
+  .account-row .meta { flex:1; min-width:0; }
+  .account-row .name { font-size:13px; font-weight:600; color:#0f172a; line-height:1.2; }
+  .account-row .sub { font-size:11px; color:#94a3b8; margin-top:2px; display:flex; align-items:center; gap:4px; }
+  .reg-tag { font-size:10px; background:#f1f5f9; color:#475569; padding:1px 6px; border-radius:3px; }
+  .switch-link { font-size:12px; color:#64748b; text-decoration:underline; text-underline-offset:2px; }
+
+  /* 大状态胶囊 */
+  .status-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 20px; border-radius:999px; font-size:14px; font-weight:600; }
+  .status-pill.bound { background:#dcfce7; color:#15803d; border:1px solid #86efac; }
+  .status-pill.unbound { background:#f1f5f9; color:#64748b; border:1px solid #e2e8f0; }
+  .status-pill.fail-red { background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; }
+  .status-pill.fail-amber { background:#fef3c7; color:#b45309; border:1px solid #fcd34d; }
+
+  /* 情况 1 的账号对比卡片 */
+  .choice-card { border-radius:14px; padding:14px; transition:all .2s; position:relative; cursor:pointer; }
+  .choice-card.unselected { background:#f8fafc; border:1.5px solid #e2e8f0; }
+  .choice-card.selected { background:#FFF8F7; border:1.5px solid var(--qd-red); box-shadow:0 2px 10px rgba(231,34,29,0.08); }
+  .choice-card .radio { width:18px; height:18px; border-radius:50%; border:2px solid #cbd5e1; flex-shrink:0; }
+  .choice-card.selected .radio { border-color: var(--qd-red); background: radial-gradient(circle at center, var(--qd-red) 0 5px, #fff 5px 7px); }
+  .choice-card .badge { position:absolute; top:-8px; left:12px; font-size:10px; padding:2px 8px; border-radius:4px; font-weight:500; }
+  .choice-card .badge.cur { background:#f1f5f9; color:#475569; }
+  .choice-card .badge.bind { background: var(--qd-red); color:#fff; }
 </style>
 </head>
 <body class="p-8">
 <div class="max-w-[1600px] mx-auto">
   <header class="mb-4">
-    <h1 class="text-2xl font-bold text-slate-900">起点 × 微信 绑定页 & 微信内自动登录 · H5 高保真原型 v3</h1>
-    <p class="text-slate-500 text-sm mt-1">主题色 #E7221D · 375 × 720 · 包含手动绑定页 9 态 + 自动登录 4 态</p>
+    <h1 class="text-2xl font-bold text-slate-900">起点 × 微信绑定 · H5 高保真原型 v4</h1>
+    <p class="text-slate-500 text-sm mt-1">主题色 #E7221D · 强化绑定状态 · 账号信息轻量化 · 375 × 720</p>
   </header>
 
-  <!-- 场景 A：手动绑定/解绑页 -->
   <div class="bg-slate-900 text-white rounded-xl p-4 mt-6">
     <div class="text-base font-bold">场景 A · 手动绑定/解绑页</div>
     <div class="text-xs text-slate-300 mt-1">用户主动打开"绑定微信"页面管理绑定关系</div>
@@ -90,7 +115,6 @@
           </div>
           <button class="primary-btn w-full mt-6 py-3 rounded-full text-sm">登 录</button>
           <div class="text-center mt-3 text-xs text-slate-400">未注册的手机号将自动创建账号</div>
-          <div class="mt-10 text-center text-xs text-slate-400">登录即代表同意 <span class="text-brand">《用户协议》</span> 与 <span class="text-brand">《隐私政策》</span></div>
         </div>
       </div>
     </div>
@@ -102,39 +126,42 @@
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
-                <div class="label mt-0.5">起点账号 · 已登录</div>
-              </div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+          <!-- 紧凑账号行 -->
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
             </div>
+            <span class="switch-link">切换账号</span>
           </div>
-          <div class="flex items-center justify-center -my-1">
-            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">· · ·</div>
-          </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl">👤</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-500">未绑定微信</div>
-              </div>
-              <span class="tag bg-slate-100 text-slate-500">未绑定</span>
-            </div>
-          </div>
-          <div class="mt-5 bg-brand-soft border border-brand-soft rounded-xl p-3 text-xs text-brand leading-relaxed">
-            💡 绑定后，追更提醒、重要通知将通过服务号推送给你
-          </div>
-          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
-            <span>本账号本月还可解绑 <span class="text-brand font-semibold">3</span> 次</span>
-            <span class="text-slate-400">每月 1 号重置</span>
-          </div>
-          <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">立即绑定</button>
-          <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
 
-          <!-- 自动弹起微信授权 sheet -->
+          <!-- 大状态胶囊 -->
+          <div class="text-center mb-4">
+            <div class="status-pill unbound">◯ 未绑定微信</div>
+          </div>
+
+          <!-- 未绑定说明卡（加授权目的文案） -->
+          <div class="bg-white rounded-xl p-4 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-3xl mb-3">💬</div>
+            <div class="text-xs text-slate-500 leading-relaxed">
+              授权微信后，才能将微信与起点账号绑定，<br/>获得追更提醒、活动通知等服务
+            </div>
+          </div>
+
+          <!-- 绑定权益 -->
+          <div class="mt-3 bg-brand-soft border border-brand-soft rounded-xl p-3">
+            <div class="text-xs font-medium text-brand mb-1.5">绑定权益</div>
+            <div class="space-y-1 text-xs text-slate-600">
+              <div>• 追更小说实时推送到服务号</div>
+              <div>• 重要提醒第一时间触达</div>
+              <div>• 活动专属福利通知</div>
+            </div>
+          </div>
+
+          <button class="primary-btn w-full mt-4 py-3 rounded-full text-sm">立即绑定</button>
+
+          <!-- 自动弹授权 sheet -->
           <div class="wx-sheet-mask">
             <div class="wx-sheet">
               <div class="wx-sheet-head">
@@ -167,24 +194,24 @@
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
-                <div class="label mt-0.5">起点账号 · 已登录</div>
-              </div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
             </div>
+            <span class="switch-link">切换账号</span>
           </div>
-          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mt-4 text-center">
-            <div class="w-14 h-14 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl">⚠️</div>
-            <div class="mt-3 text-sm font-semibold text-amber-900">未授权微信信息</div>
+
+          <div class="text-center mb-4">
+            <div class="status-pill fail-amber">⚠ 未授权</div>
+          </div>
+
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-3">⚠️</div>
+            <div class="text-sm font-semibold text-amber-900">未授权微信信息</div>
             <div class="mt-2 text-xs text-amber-700 leading-relaxed">授权微信后，才能将微信与起点账号绑定，<br/>获得追更提醒、活动通知等服务</div>
             <button class="primary-btn mt-4 px-8 py-2 rounded-full text-sm">重新授权</button>
-          </div>
-          <div class="mt-auto text-center">
-            <button class="gray-btn w-full mt-5 py-2.5 rounded-full text-sm">切换账号</button>
           </div>
         </div>
       </div>
@@ -197,46 +224,32 @@
 
     <div>
       <div class="frame-title">④ 已绑定态</div>
-      <div class="frame-sub">展示注册方式 + 绑定作用范围说明 + 剩余解绑次数</div>
+      <div class="frame-sub">大状态胶囊突出绑定结果 + 注册方式</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
-                <div class="label mt-0.5 flex items-center gap-1">
-                  <span>注册方式：</span>
-                  <span class="inline-flex items-center gap-0.5 bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px]">📱 手机号</span>
-                </div>
-              </div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
-            </div>
-          </div>
-          <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-green-500 text-white text-xs px-3 py-0.5 rounded-full font-medium shadow-sm">✓ 已绑定</div>
-          </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书*友</div>
-                <div class="label mt-0.5">微信账号 · 已授权</div>
-              </div>
-              <span class="tag bg-green-50 text-green-600">已绑定</span>
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
             </div>
           </div>
 
-          <!-- 关键说明：绑定作用范围 -->
-          <div class="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-start gap-2">
+          <div class="text-center mb-5 mt-2">
+            <div class="status-pill bound">✓ 已绑定微信</div>
+          </div>
+
+          <!-- 绑定作用说明 -->
+          <div class="bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-start gap-2">
             <span class="text-amber-500 text-sm leading-none mt-0.5">ⓘ</span>
             <div class="flex-1 text-[11px] text-amber-800 leading-relaxed">
               该绑定仅用于在微信内自动识别你的起点账号、推送服务号消息
             </div>
           </div>
 
+          <!-- 绑定权益 -->
           <div class="mt-3 bg-white rounded-xl p-4">
             <div class="text-xs font-medium text-slate-900 mb-2">绑定权益</div>
             <div class="space-y-1.5 text-xs text-slate-500">
@@ -245,6 +258,7 @@
               <div>• 活动专属福利通知</div>
             </div>
           </div>
+
           <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
             <span>本账号本月还可解绑 <span class="text-brand font-semibold">3</span> 次</span>
             <span class="text-slate-400">每月 1 号重置</span>
@@ -256,65 +270,67 @@
 
     <div>
       <div class="frame-title">⑤ 未绑定态 · 解绑后返回</div>
-      <div class="frame-sub">与 ② 同一页面，无自动弹授权；用户点击"立即绑定"再触发</div>
+      <div class="frame-sub">与 ② 同一页面，无自动弹授权</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
-                <div class="label mt-0.5">起点账号 · 已登录</div>
-              </div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
+            </div>
+            <span class="switch-link">切换账号</span>
+          </div>
+
+          <div class="text-center mb-4">
+            <div class="status-pill unbound">◯ 未绑定微信</div>
+          </div>
+
+          <div class="bg-white rounded-xl p-4 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-3xl mb-3">💬</div>
+            <div class="text-xs text-slate-500 leading-relaxed">
+              授权微信后，才能将微信与起点账号绑定，<br/>获得追更提醒、活动通知等服务
             </div>
           </div>
-          <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">· · ·</div>
-          </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl">👤</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-500">未绑定微信</div>
-              </div>
-              <span class="tag bg-slate-100 text-slate-500">未绑定</span>
+
+          <div class="mt-3 bg-brand-soft border border-brand-soft rounded-xl p-3">
+            <div class="text-xs font-medium text-brand mb-1.5">绑定权益</div>
+            <div class="space-y-1 text-xs text-slate-600">
+              <div>• 追更小说实时推送到服务号</div>
+              <div>• 重要提醒第一时间触达</div>
+              <div>• 活动专属福利通知</div>
             </div>
           </div>
-          <div class="mt-5 bg-brand-soft border border-brand-soft rounded-xl p-3 text-xs text-brand leading-relaxed">
-            💡 绑定后，追更提醒、重要通知将通过服务号推送给你
-          </div>
-          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
+
+          <div class="mt-3 flex items-center justify-between text-xs text-slate-500 px-1">
             <span>本账号本月还可解绑 <span class="text-brand font-semibold">2</span> 次</span>
             <span class="text-slate-400">每月 1 号重置</span>
           </div>
           <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">立即绑定</button>
-          <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
         </div>
       </div>
     </div>
 
     <div>
       <div class="frame-title">⑥ 解绑二次确认弹窗</div>
-      <div class="frame-sub">显示剩余次数（按账号计），防误触</div>
+      <div class="frame-sub">显示剩余次数，防误触</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4 relative">
-          <div class="bg-white rounded-xl p-4 mb-3 opacity-60">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书友_8472391</div><div class="label mt-0.5">起点账号 · 已登录</div></div>
+          <div class="account-row mb-4 opacity-60">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
             </div>
           </div>
-          <div class="bg-white rounded-xl p-4 opacity-60">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书*友</div><div class="label mt-0.5">微信账号</div></div>
-            </div>
+          <div class="text-center mb-5 mt-2 opacity-60">
+            <div class="status-pill bound">✓ 已绑定微信</div>
           </div>
+
           <div class="modal-mask">
             <div class="modal">
               <div class="p-5 text-center">
@@ -338,76 +354,70 @@
     </div>
   </div>
 
-  <!-- ============ 03 异常态 & 切换账号确认 ============ -->
+  <!-- ============ 03 异常态 ============ -->
   <div class="section-title"><span class="num">03</span><span class="desc">异常态 / 切换账号确认</span></div>
   <div class="flex flex-wrap gap-8">
 
     <div>
-      <div class="frame-title">⑦ 冲突 · 微信已绑其他起点账号</div>
-      <div class="frame-sub">页面内提示 · 脱敏展示</div>
+      <div class="frame-title">⑦ 账号无法绑定 · 微信已绑其他起点账号</div>
+      <div class="frame-sub">切换账号入口在账号行上，无重试按钮</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书友_8472391</div><div class="label mt-0.5">起点账号 · 已登录</div></div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
+            </div>
+            <span class="switch-link">切换账号</span>
+          </div>
+
+          <div class="text-center mb-4">
+            <div class="status-pill fail-red">✕ 账号无法绑定</div>
+          </div>
+
+          <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-red-100 flex items-center justify-center text-2xl mb-3">🚫</div>
+            <div class="text-sm font-semibold text-red-900">该微信已绑定其他起点账号</div>
+            <div class="mt-2 text-xs text-red-700 leading-relaxed">
+              已绑定账号：<span class="font-mono font-medium">起***123</span><br/>
+              如需继续，请在该账号下解绑后重试
             </div>
           </div>
-          <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-red-500 text-white text-xs px-3 py-0.5 rounded-full font-medium">✕ 绑定失败</div>
-          </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书*友</div><div class="label mt-0.5">微信账号 · 已授权</div></div>
-            </div>
-          </div>
-          <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-3 text-xs text-red-700 leading-relaxed">
-            <div class="font-semibold mb-1">⚠ 该微信已绑定其他起点账号</div>
-            已绑定账号：<span class="font-mono">起***123</span><br/>
-            请先在该账号下解绑微信，或切换账号后重试
-          </div>
-          <button class="primary-btn w-full mt-5 py-3 rounded-full text-sm">重试绑定</button>
-          <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
         </div>
       </div>
     </div>
 
     <div>
-      <div class="frame-title">⑧ 冲突 · 起点账号已绑其他微信</div>
-      <div class="frame-sub">页面内提示 · 琥珀色警示（问题可解决，提供行动路径）</div>
+      <div class="frame-title">⑧ 账号无法绑定 · 起点账号已绑其他微信</div>
+      <div class="frame-sub">琥珀色警示，引导原微信持有者自助解绑</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书友_8472391</div><div class="label mt-0.5">起点账号 · 已登录</div></div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
             </div>
-          </div>
-          <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-amber-500 text-white text-xs px-3 py-0.5 rounded-full font-medium">✕ 绑定失败</div>
-          </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书*友</div><div class="label mt-0.5">微信账号 · 已授权</div></div>
-              <span class="tag bg-slate-100 text-slate-500">未绑定</span>
-            </div>
+            <span class="switch-link">切换账号</span>
           </div>
 
-          <div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 leading-relaxed">
-            <div class="font-semibold mb-1">当前账号已绑定其他微信</div>
-            已绑定微信：<span class="text-amber-900 font-medium">昵*称</span><br/>
-            如需绑定当前微信，请使用原微信在绑定页自行解绑
+          <div class="text-center mb-4">
+            <div class="status-pill fail-amber">✕ 账号无法绑定</div>
           </div>
 
-          <button class="gray-btn w-full mt-5 py-3 rounded-full text-sm">切换账号</button>
+          <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-2xl mb-3">⚠️</div>
+            <div class="text-sm font-semibold text-amber-900">当前账号已绑定其他微信</div>
+            <div class="mt-2 text-xs text-amber-700 leading-relaxed">
+              已绑定微信：<span class="font-medium">昵*称</span><br/>
+              如需绑定当前微信，请使用原微信在绑定页自行解绑
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -418,31 +428,28 @@
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
-        <div class="content bg-slate-50 p-4 relative">
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书友_8472391</div><div class="label mt-0.5">起点账号 · 已登录</div></div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+        <div class="content bg-slate-50 p-4">
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
+            </div>
+            <span class="switch-link">切换账号</span>
+          </div>
+
+          <div class="text-center mb-4">
+            <div class="status-pill fail-red">🚫 本月已达上限</div>
+          </div>
+
+          <div class="bg-red-50 border border-red-100 rounded-xl p-4 text-center">
+            <div class="w-14 h-14 mx-auto rounded-full bg-red-100 flex items-center justify-center text-2xl mb-3">🚫</div>
+            <div class="text-sm font-semibold text-red-900">该账号本月解绑次数已达 3 次上限</div>
+            <div class="mt-2 text-xs text-red-700 leading-relaxed">
+              本月该起点账号暂无法绑定新微信<br/>
+              请于下月 1 日 0:00 后重试
             </div>
           </div>
-          <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full">· · ·</div>
-          </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书*友</div><div class="label mt-0.5">微信账号 · 已授权</div></div>
-            </div>
-          </div>
-          <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-3 text-xs text-red-700 leading-relaxed">
-            <div class="font-semibold mb-1">🚫 该账号本月解绑次数已达 3 次上限</div>
-            本月该起点账号暂无法绑定新微信，<br/>
-            请于下月 1 日 0:00 后重试
-          </div>
-          <button class="primary-btn-disabled w-full mt-5 py-3 rounded-full text-sm" disabled>立即绑定（本月已达上限）</button>
-          <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
-          <div class="toast">该账号本月解绑次数已达上限</div>
         </div>
       </div>
     </div>
@@ -452,44 +459,24 @@
   <div class="section-title"><span class="num">04</span><span class="desc">切换账号二次确认</span></div>
   <div class="flex flex-wrap gap-8">
     <div>
-      <div class="frame-title">⑩ 切换账号 · 二次确认弹窗（示意在已绑定态触发）</div>
-      <div class="frame-sub">在任意未绑定/已绑定态点击"切换账号"后弹出</div>
+      <div class="frame-title">⑩ 切换账号 · 二次确认弹窗</div>
+      <div class="frame-sub">点击账号行的"切换账号"后弹出</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
         <div class="content bg-slate-50 p-4 relative">
-          <!-- 背景：已绑定态页面完整示意 -->
-          <div class="bg-white rounded-xl p-4 mb-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
-                <div class="label mt-0.5">起点账号 · 已登录</div>
-              </div>
-              <span class="tag bg-brand-soft text-brand">已登录</span>
+          <div class="account-row mb-4">
+            <div class="avatar qd-avatar">起</div>
+            <div class="meta">
+              <div class="name">书友_8472391</div>
+              <div class="sub">注册方式：<span class="reg-tag">📱 手机号</span></div>
             </div>
+            <span class="switch-link">切换账号</span>
           </div>
-          <div class="flex items-center justify-center -my-1">
-            <div class="bg-green-500 text-white text-xs px-3 py-0.5 rounded-full font-medium shadow-sm">✓ 已绑定</div>
+          <div class="text-center mb-5 mt-2">
+            <div class="status-pill bound">✓ 已绑定微信</div>
           </div>
-          <div class="bg-white rounded-xl p-4 mt-3">
-            <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书*友</div>
-                <div class="label mt-0.5">微信账号 · 已授权</div>
-              </div>
-              <span class="tag bg-green-50 text-green-600">已绑定</span>
-            </div>
-          </div>
-          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
-            <span>本账号本月还可解绑 <span class="text-brand font-semibold">3</span> 次</span>
-            <span class="text-slate-400">每月 1 号重置</span>
-          </div>
-          <button class="mt-2 w-full py-2.5 rounded-full text-sm text-slate-500 border border-slate-200 bg-white">解绑微信</button>
-          <button class="mt-3 w-full py-2.5 rounded-full text-sm gray-btn">切换账号</button>
 
-          <!-- 二次确认弹窗覆盖在完整页面之上 -->
           <div class="modal-mask">
             <div class="modal">
               <div class="p-5 text-center">
@@ -509,10 +496,10 @@
     </div>
   </div>
 
-  <!-- ============ 场景 B：微信内自动登录 ============ -->
+  <!-- ============ 场景 B ============ -->
   <div class="bg-sky-700 text-white rounded-xl p-4 mt-12">
     <div class="text-base font-bold">场景 B · 微信内自动登录 / 自动绑定</div>
-    <div class="text-xs text-sky-100 mt-1">用户在微信服务号内点击业务链接（如领券、阅读章节）时，系统自动识别/绑定账号</div>
+    <div class="text-xs text-sky-100 mt-1">用户在微信服务号内点击业务链接时，系统自动识别/绑定账号</div>
   </div>
 
   <div class="section-title"><span class="num">05</span><span class="desc">5 种情况矩阵</span></div>
@@ -524,7 +511,7 @@
           <th class="py-2 px-2 font-semibold">H5 登录态</th>
           <th class="py-2 px-2 font-semibold">绑定关系</th>
           <th class="py-2 px-2 font-semibold">处理策略</th>
-          <th class="py-2 px-2 font-semibold">用户感知</th>
+          <th class="py-2 px-2 font-semibold">感知</th>
         </tr>
       </thead>
       <tbody class="text-slate-700">
@@ -532,7 +519,7 @@
           <td class="py-3 px-2"><span class="scene-tag">情况 1</span></td>
           <td class="py-3 px-2">已登录</td>
           <td class="py-3 px-2">当前 unionid 已绑<br/><span class="text-xs text-slate-400">但非当前登录账号</span></td>
-          <td class="py-3 px-2">独立页询问是否切换至绑定账号</td>
+          <td class="py-3 px-2">独立页询问使用哪个账号继续</td>
           <td class="py-3 px-2"><span class="tag bg-amber-100 text-amber-700">独立页</span></td>
         </tr>
         <tr class="border-b border-slate-100">
@@ -545,76 +532,82 @@
         <tr class="border-b border-slate-100">
           <td class="py-3 px-2"><span class="scene-tag">情况 3</span></td>
           <td class="py-3 px-2">已登录</td>
-          <td class="py-3 px-2">未绑定<br/><span class="text-xs text-slate-400">（当前账号无微信、当前微信无账号）</span></td>
-          <td class="py-3 px-2">
-            当前账号本月解绑次数 &lt; 3 且不在冷却期 → 弹微信授权：<br/>
-            · 同意 → 自动绑定当前登录账号<br/>
-            · 拒绝 → 写 7 天冷却，继续业务不阻塞<br/>
-            达上限或冷却中 → 跳过授权，继续业务
-          </td>
+          <td class="py-3 px-2">未绑定（双方均未绑定）</td>
+          <td class="py-3 px-2">未达上限且不在冷却期 → 弹授权；达上限/冷却中 → 跳过</td>
           <td class="py-3 px-2"><span class="tag bg-sky-100 text-sky-700">授权弹窗</span></td>
         </tr>
         <tr class="border-b border-slate-100">
           <td class="py-3 px-2"><span class="scene-tag">情况 4</span></td>
           <td class="py-3 px-2">未登录</td>
           <td class="py-3 px-2">未绑定</td>
-          <td class="py-3 px-2">
-            先跳登录页完成登录 → 登录后逻辑同"情况 3"<br/>
-            <span class="text-xs text-slate-400">若登录后发现当前账号已绑其他微信（CONFLICT_QD），跳过授权</span>
-          </td>
+          <td class="py-3 px-2">先跳登录完成后同"情况 3"</td>
           <td class="py-3 px-2"><span class="tag bg-sky-100 text-sky-700">登录+授权</span></td>
         </tr>
         <tr>
           <td class="py-3 px-2"><span class="scene-tag">情况 5</span></td>
           <td class="py-3 px-2">未登录</td>
           <td class="py-3 px-2">当前 unionid 已绑定</td>
-          <td class="py-3 px-2">静默自动登录绑定的起点账号</td>
+          <td class="py-3 px-2">静默自动登录该起点账号</td>
           <td class="py-3 px-2"><span class="tag bg-green-100 text-green-700">无感</span></td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="section-title"><span class="num">06</span><span class="desc">自动登录关键原型（仅画有交互的页面）</span></div>
+  <div class="section-title"><span class="num">06</span><span class="desc">自动登录关键原型</span></div>
   <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800 mb-4 leading-relaxed">
-    💡 自动登录是**通用能力**，不与任何具体业务耦合。情况 2（账号一致）、情况 5（静默登录）对用户无感知，不需要原型；情况 3/4 拒绝或限流时直接走业务流程，也无需展示。本节仅展示**必须有用户交互的页面**。
+    💡 自动登录是通用能力，不与任何具体业务耦合。情况 2 / 情况 5 对用户无感知；情况 3/4 拒绝或限流时直接走业务流程。本节仅展示**必须有用户交互的页面**。
   </div>
   <div class="flex flex-wrap gap-8">
 
     <div>
-      <div class="frame-title"><span class="scene-tag auto">情况 1</span>账号不一致 · 独立确认页</div>
-      <div class="frame-sub">独立页面，不叠加任何业务内容</div>
+      <div class="frame-title"><span class="scene-tag auto">情况 1</span>账号二选一 · 独立确认页</div>
+      <div class="frame-sub">默认选中"已绑定账号"，展示余额+最近阅读帮助用户区分</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
-        <div class="navbar"><span class="back">‹</span><span class="title">账号确认</span></div>
+        <div class="navbar"><span class="back">‹</span><span class="title">账号确认</span><span class="nav-right">跳过</span></div>
         <div class="content bg-white p-5 flex flex-col">
-          <div class="mt-6 mb-6 text-center">
-            <div class="text-lg font-semibold text-slate-900">当前微信已有绑定的起点账号</div>
-            <div class="text-xs text-slate-500 mt-2">是否切换至已绑定的账号？</div>
+          <div class="mt-3 mb-5 text-center">
+            <div class="text-base font-semibold text-slate-900">检测到两个起点账号</div>
+            <div class="text-xs text-slate-500 mt-1.5">请选择使用哪个账号继续</div>
           </div>
 
-          <!-- 当前登录账号：低调告知 -->
-          <div class="flex items-center gap-2 px-3 py-2 text-xs text-slate-500">
-            <span class="text-slate-400">当前登录：</span>
-            <div class="w-5 h-5 rounded-full qd-avatar flex items-center justify-center text-white text-[10px] font-semibold">起</div>
-            <span class="text-slate-700">书友_8472391</span>
-          </div>
-
-          <!-- 已绑定账号：视觉焦点 -->
-          <div class="mt-2 bg-brand-soft border-2 border-brand-soft rounded-xl p-4 relative">
-            <div class="absolute -top-2 left-4 bg-brand text-white text-[10px] px-2 py-0.5 rounded font-medium" style="background: var(--qd-red);">微信已绑定</div>
-            <div class="flex items-center gap-3 mt-1">
-              <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white text-base font-bold">起</div>
-              <div class="flex-1">
-                <div class="text-base font-semibold text-slate-900 font-mono">起***123</div>
-                <div class="text-[11px] text-slate-500 mt-0.5">切换后将使用此账号继续</div>
+          <!-- 当前登录账号（未选中） -->
+          <div class="choice-card unselected mb-5">
+            <span class="badge cur">当前登录</span>
+            <div class="flex items-start gap-3">
+              <div class="w-11 h-11 rounded-full qd-avatar flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">起</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">注册方式：📱 手机号</div>
+                <div class="text-[11px] text-slate-500 mt-1.5 space-y-0.5">
+                  <div>余额：<span class="text-slate-800 font-medium">1,280</span> 点</div>
+                  <div class="truncate">最近阅读：《道诡异仙》</div>
+                </div>
               </div>
+              <div class="radio mt-1"></div>
             </div>
           </div>
 
-          <div class="mt-auto pt-8">
-            <button class="primary-btn w-full py-3 rounded-full text-sm">切到绑定账号</button>
-            <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">不用了</button>
+          <!-- 已绑定账号（选中） -->
+          <div class="choice-card selected">
+            <span class="badge bind">微信已绑定</span>
+            <div class="flex items-start gap-3">
+              <div class="w-11 h-11 rounded-full qd-avatar flex items-center justify-center text-white text-sm font-semibold flex-shrink-0">起</div>
+              <div class="flex-1 min-w-0">
+                <div class="text-sm font-semibold text-slate-900 font-mono">起***123</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">注册方式：💬 微信</div>
+                <div class="text-[11px] text-slate-500 mt-1.5 space-y-0.5">
+                  <div>余额：<span class="text-slate-800 font-medium">5,600</span> 点</div>
+                  <div class="truncate">最近阅读：《诡秘之主》</div>
+                </div>
+              </div>
+              <div class="radio mt-1"></div>
+            </div>
+          </div>
+
+          <div class="mt-auto pt-6">
+            <button class="primary-btn w-full py-3 rounded-full text-sm">确认使用</button>
           </div>
         </div>
       </div>
@@ -635,18 +628,18 @@
             </svg>
           </div>
           <div class="text-base font-semibold text-slate-900">操作失败，请重试</div>
-
           <button class="primary-btn w-full mt-auto py-3 rounded-full text-sm">重试</button>
         </div>
       </div>
     </div>
+
+    <div>
       <div class="frame-title"><span class="scene-tag auto">情况 3/4</span>自动授权弹窗</div>
       <div class="frame-sub">纯白背景，不与任何业务耦合</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">起点中文网</span></div>
         <div class="content bg-white relative">
-          <!-- 空白背景（loading 或过渡页）-->
           <div class="flex items-center justify-center h-full">
             <div class="text-center">
               <div class="w-10 h-10 mx-auto border-4 border-slate-200 border-t-slate-400 rounded-full animate-spin"></div>
