@@ -181,7 +181,7 @@
 
     <div>
       <div class="frame-title">④ 已绑定态</div>
-      <div class="frame-sub">展示双方信息 + 本月剩余解绑次数（GUID 维度）</div>
+      <div class="frame-sub">展示注册方式 + 绑定作用范围说明 + 剩余解绑次数</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
@@ -191,7 +191,10 @@
               <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
               <div class="flex-1">
                 <div class="text-sm font-semibold text-slate-900">书友_8472391</div>
-                <div class="label mt-0.5">起点账号 · 已登录</div>
+                <div class="label mt-0.5 flex items-center gap-1">
+                  <span>注册方式：</span>
+                  <span class="inline-flex items-center gap-0.5 bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded text-[10px]">📱 手机号</span>
+                </div>
               </div>
               <span class="tag bg-brand-soft text-brand">已登录</span>
             </div>
@@ -209,7 +212,16 @@
               <span class="tag bg-green-50 text-green-600">已绑定</span>
             </div>
           </div>
-          <div class="mt-4 bg-white rounded-xl p-4">
+
+          <!-- 关键说明：绑定作用范围 -->
+          <div class="mt-3 bg-amber-50 border border-amber-200 rounded-lg p-2.5 flex items-start gap-2">
+            <span class="text-amber-500 text-sm leading-none mt-0.5">ⓘ</span>
+            <div class="flex-1 text-[11px] text-amber-800 leading-relaxed">
+              该绑定仅用于在微信内自动识别你的起点账号、推送服务号消息
+            </div>
+          </div>
+
+          <div class="mt-3 bg-white rounded-xl p-4">
             <div class="text-xs font-medium text-slate-900 mb-2">绑定权益</div>
             <div class="space-y-1.5 text-xs text-slate-500">
               <div>• 追更小说实时推送到服务号</div>
@@ -227,8 +239,8 @@
     </div>
 
     <div>
-      <div class="frame-title">⑤ 未绑定态 · 无冲突</div>
-      <div class="frame-sub">双方均未绑定，可直接绑定</div>
+      <div class="frame-title">⑤ 未绑定态 · 解绑后</div>
+      <div class="frame-sub">用户主动解绑后回到的状态（非自动绑定入口）</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
@@ -244,22 +256,26 @@
             </div>
           </div>
           <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">· · ·</div>
+            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">已解绑</div>
           </div>
           <div class="bg-white rounded-xl p-4 mt-3">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
+              <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl">👤</div>
               <div class="flex-1">
-                <div class="text-sm font-semibold text-slate-900">书*友</div>
-                <div class="label mt-0.5">微信账号 · 已授权待绑定</div>
+                <div class="text-sm font-semibold text-slate-500">未绑定微信</div>
+                <div class="label mt-0.5">点击下方按钮重新绑定</div>
               </div>
               <span class="tag bg-slate-100 text-slate-500">未绑定</span>
             </div>
           </div>
           <div class="mt-5 bg-brand-soft border border-brand-soft rounded-xl p-3 text-xs text-brand leading-relaxed">
-            💡 绑定后，追更提醒、重要通知将通过服务号推送给你
+            💡 重新绑定后，追更提醒、重要通知将通过服务号推送给你
           </div>
-          <button class="primary-btn w-full mt-6 py-3 rounded-full text-sm">立即绑定</button>
+          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
+            <span>本账号本月还可解绑 <span class="text-brand font-semibold">2</span> 次</span>
+            <span class="text-slate-400">每月 1 号重置</span>
+          </div>
+          <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">重新绑定</button>
           <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
         </div>
       </div>
@@ -347,39 +363,36 @@
 
     <div>
       <div class="frame-title">⑧ 冲突 · 起点账号已绑其他微信</div>
-      <div class="frame-sub">弹窗形式提示 · 脱敏昵称</div>
+      <div class="frame-sub">页面内提示 · 琥珀色警示（问题可解决，提供行动路径）</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
-        <div class="content bg-slate-50 p-4 relative">
-          <div class="bg-white rounded-xl p-4 mb-3 opacity-60">
+        <div class="content bg-slate-50 p-4">
+          <div class="bg-white rounded-xl p-4 mb-3">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-full qd-avatar flex items-center justify-center text-white font-semibold">起</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书友_8472391</div></div>
+              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书友_8472391</div><div class="label mt-0.5">起点账号 · 已登录</div></div>
+              <span class="tag bg-brand-soft text-brand">已登录</span>
             </div>
           </div>
-          <div class="bg-white rounded-xl p-4 opacity-60">
+          <div class="flex items-center justify-center -my-1 relative z-10">
+            <div class="bg-amber-500 text-white text-xs px-3 py-0.5 rounded-full font-medium">✕ 绑定失败</div>
+          </div>
+          <div class="bg-white rounded-xl p-4 mt-3">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-semibold">微</div>
-              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书*友</div></div>
+              <div class="flex-1"><div class="text-sm font-semibold text-slate-900">书*友</div><div class="label mt-0.5">微信账号 · 已授权</div></div>
+              <span class="tag bg-slate-100 text-slate-500">未绑定</span>
             </div>
           </div>
-          <div class="modal-mask">
-            <div class="modal">
-              <div class="p-5 text-center">
-                <div class="w-12 h-12 mx-auto rounded-full bg-amber-100 flex items-center justify-center text-xl">⚠</div>
-                <div class="mt-3 text-base font-semibold text-slate-900">当前账号已绑定其他微信</div>
-                <div class="mt-3 text-xs text-slate-500 leading-relaxed bg-slate-50 rounded-lg p-3">
-                  已绑定微信：<span class="text-slate-900 font-medium">昵*称</span><br/>
-                  如需绑定当前微信，请先前往解绑
-                </div>
-              </div>
-              <div class="grid grid-cols-2 border-t border-slate-100">
-                <button class="py-3 text-sm text-slate-500 border-r border-slate-100">切换账号</button>
-                <button class="py-3 text-sm text-brand font-semibold">我知道了</button>
-              </div>
-            </div>
+
+          <div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800 leading-relaxed">
+            <div class="font-semibold mb-1">当前账号已绑定其他微信</div>
+            已绑定微信：<span class="text-amber-900 font-medium">昵*称</span><br/>
+            如需绑定当前微信，请使用原微信在绑定页自行解绑
           </div>
+
+          <button class="gray-btn w-full mt-5 py-3 rounded-full text-sm">切换账号</button>
         </div>
       </div>
     </div>
@@ -593,6 +606,25 @@
     </div>
 
     <div>
+      <div class="frame-title"><span class="scene-tag auto">情况 1</span>切换失败 · 重试页</div>
+      <div class="frame-sub">切到绑定账号失败时（如网络异常、自动登录失败等）</div>
+      <div class="phone">
+        <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
+        <div class="navbar"><span class="back">‹</span><span class="title">账号确认</span></div>
+        <div class="content bg-white p-5 flex flex-col items-center justify-center">
+          <div class="w-20 h-20 rounded-full bg-red-50 border-2 border-red-100 flex items-center justify-center mb-5">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <div class="text-base font-semibold text-slate-900">操作失败，请重试</div>
+
+          <button class="primary-btn w-full mt-auto py-3 rounded-full text-sm">重试</button>
+        </div>
+      </div>
+    </div>
       <div class="frame-title"><span class="scene-tag auto">情况 3/4</span>自动授权弹窗</div>
       <div class="frame-sub">纯白背景，不与任何业务耦合</div>
       <div class="phone">
