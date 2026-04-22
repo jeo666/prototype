@@ -96,8 +96,8 @@
     </div>
 
     <div>
-      <div class="frame-title">② 已登录 · 微信授权面板</div>
-      <div class="frame-sub">仿微信底部 sheet 样式 · 仅展示公开信息项</div>
+      <div class="frame-title">② 未绑定态 · 首次进入（自动弹授权）</div>
+      <div class="frame-sub">页面与 ⑤ 同源，首次进入会自动拉起授权 sheet</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
@@ -112,13 +112,29 @@
               <span class="tag bg-brand-soft text-brand">已登录</span>
             </div>
           </div>
-          <div class="bg-white rounded-xl p-4 opacity-40">
+          <div class="flex items-center justify-center -my-1">
+            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">· · ·</div>
+          </div>
+          <div class="bg-white rounded-xl p-4 mt-3">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl">👤</div>
-              <div class="flex-1"><div class="text-sm text-slate-400">待绑定微信账号</div></div>
+              <div class="flex-1">
+                <div class="text-sm font-semibold text-slate-500">未绑定微信</div>
+              </div>
+              <span class="tag bg-slate-100 text-slate-500">未绑定</span>
             </div>
           </div>
+          <div class="mt-5 bg-brand-soft border border-brand-soft rounded-xl p-3 text-xs text-brand leading-relaxed">
+            💡 绑定后，追更提醒、重要通知将通过服务号推送给你
+          </div>
+          <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
+            <span>本账号本月还可解绑 <span class="text-brand font-semibold">3</span> 次</span>
+            <span class="text-slate-400">每月 1 号重置</span>
+          </div>
+          <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">立即绑定</button>
+          <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
 
+          <!-- 自动弹起微信授权 sheet -->
           <div class="wx-sheet-mask">
             <div class="wx-sheet">
               <div class="wx-sheet-head">
@@ -239,8 +255,8 @@
     </div>
 
     <div>
-      <div class="frame-title">⑤ 未绑定态 · 解绑后</div>
-      <div class="frame-sub">用户主动解绑后回到的状态（非自动绑定入口）</div>
+      <div class="frame-title">⑤ 未绑定态 · 解绑后返回</div>
+      <div class="frame-sub">与 ② 同一页面，无自动弹授权；用户点击"立即绑定"再触发</div>
       <div class="phone">
         <div class="statusbar"><span>9:41</span><span>••• ⚪</span></div>
         <div class="navbar"><span class="back">‹</span><span class="title">微信绑定</span></div>
@@ -256,26 +272,25 @@
             </div>
           </div>
           <div class="flex items-center justify-center -my-1 relative z-10">
-            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">已解绑</div>
+            <div class="bg-slate-300 text-white text-xs px-3 py-0.5 rounded-full font-medium">· · ·</div>
           </div>
           <div class="bg-white rounded-xl p-4 mt-3">
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 text-xl">👤</div>
               <div class="flex-1">
                 <div class="text-sm font-semibold text-slate-500">未绑定微信</div>
-                <div class="label mt-0.5">点击下方按钮重新绑定</div>
               </div>
               <span class="tag bg-slate-100 text-slate-500">未绑定</span>
             </div>
           </div>
           <div class="mt-5 bg-brand-soft border border-brand-soft rounded-xl p-3 text-xs text-brand leading-relaxed">
-            💡 重新绑定后，追更提醒、重要通知将通过服务号推送给你
+            💡 绑定后，追更提醒、重要通知将通过服务号推送给你
           </div>
           <div class="mt-4 flex items-center justify-between text-xs text-slate-500 px-1">
             <span>本账号本月还可解绑 <span class="text-brand font-semibold">2</span> 次</span>
             <span class="text-slate-400">每月 1 号重置</span>
           </div>
-          <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">重新绑定</button>
+          <button class="primary-btn w-full mt-2 py-3 rounded-full text-sm">立即绑定</button>
           <button class="gray-btn w-full mt-3 py-2.5 rounded-full text-sm">切换账号</button>
         </div>
       </div>
@@ -501,7 +516,7 @@
   </div>
 
   <div class="section-title"><span class="num">05</span><span class="desc">5 种情况矩阵</span></div>
-  <div class="bg-white rounded-xl p-5 max-w-5xl overflow-x-auto">
+  <div class="bg-white rounded-xl p-5 overflow-x-auto">
     <table class="w-full text-sm">
       <thead>
         <tr class="text-left border-b-2 border-slate-200">
@@ -561,7 +576,7 @@
   </div>
 
   <div class="section-title"><span class="num">06</span><span class="desc">自动登录关键原型（仅画有交互的页面）</span></div>
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800 max-w-5xl mb-4 leading-relaxed">
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800 mb-4 leading-relaxed">
     💡 自动登录是**通用能力**，不与任何具体业务耦合。情况 2（账号一致）、情况 5（静默登录）对用户无感知，不需要原型；情况 3/4 拒绝或限流时直接走业务流程，也无需展示。本节仅展示**必须有用户交互的页面**。
   </div>
   <div class="flex flex-wrap gap-8">
@@ -667,7 +682,7 @@
 
   <!-- ============ 设计说明 ============ -->
   <div class="section-title"><span class="num">07</span><span class="desc">关键规则</span></div>
-  <div class="bg-white rounded-xl p-6 text-sm text-slate-700 leading-relaxed max-w-5xl">
+  <div class="bg-white rounded-xl p-6 text-sm text-slate-700 leading-relaxed">
     <div class="font-semibold text-slate-900 mb-2">微信授权侧的限制说明（调研结论）</div>
     <ul class="space-y-1.5 list-disc pl-5 text-xs">
       <li><span class="font-medium">微信 OAuth 的静默复用</span>：用户首次授权过 <code class="kbd">snsapi_userinfo</code> 后，再次请求会静默返回（除非用户主动在"设置→已授权应用"取消）。</li>
